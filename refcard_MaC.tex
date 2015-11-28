@@ -1,0 +1,238 @@
+\documentclass[10pt]{article}
+\usepackage{fixltx2e}
+\usepackage[orthodox,l2tabu,abort]{nag}
+\usepackage[utf8]{inputenc}
+% Page layout
+\usepackage[landscape,margin=0.5in]{geometry}
+\usepackage{multicol}
+
+% Title area
+\usepackage{titling} % Allows for use of date, author, etc. after \maketitle
+% Ref: http://tex.stackexchange.com/questions/3988/titlesec-versus-titling-mangling-thetitle
+\let\oldtitle\title
+\renewcommand{\title}[1]{\oldtitle{#1}\newcommand{\mythetitle}{#1}}
+\renewcommand{\maketitle}{%
+{\begin{center}\Large \mythetitle\end{center}}
+}
+
+% Document divisions
+\usepackage{titlesec}
+\setcounter{secnumdepth}{0}
+\titlespacing{\section}{0pt}{0pt}{0pt}
+\titlespacing{\subsection}{0pt}{0pt}{0pt}
+\usepackage{nopageno} % To keep \section from resetting page style
+
+\setlength{\parindent}{0pt} % disabling indentation by default
+
+% Lists
+\usepackage{enumitem} % for consistent formatting of lists
+\newlist{ttdesc}{description}{1}
+\setlist[ttdesc]{font=\ttfamily,noitemsep}
+\usepackage{calc} % for \widthof
+
+% Code
+\usepackage{listings}
+\lstset{language=[LaTeX]TeX,%
+  basicstyle=\itshape,%
+  keywordstyle=\normalfont\ttfamily,%
+  morekeywords={part,chapter,subsection,subsubsection,paragraph,subparagraph}%
+  }
+
+\usepackage{amsmath} % Required for some math elements 
+\usepackage[utf8]{inputenc} % Required for special characters processing
+\usepackage{siunitx} % Provides the \SI{}{} and \si{} command for typesetting SI units
+\newcommand{\gc}{\degreeCelsius}
+
+\usepackage{lipsum}
+
+\title{Meteorology \& Climatology RefCard}
+\author{Curro Pérez Bernal}
+\date{2015-2016}
+
+\begin{document}
+\begin{multicols}{3}
+\maketitle
+
+\section{Physics and Thermodynamics}
+
+\subsection{Basic Thermodynamics}
+\begin{ttdesc}[labelwidth=\widthof{\texttt{report}}]
+\item[Ideal gas Eq.] $p = \rho r T$~,~$r = \frac{R}{M}$
+\item[Heat Capacity] $Q = m c \Delta T$
+\item[First Princ.] $\Delta U = Q - W$
+\item[Idem., diff.] $c_pdT = \frac{dp}{\rho}$, $c_vdT = -pdV$
+\item[Latent Heat] $Q = m L$
+\item[L Dependence with $T$] $L=L_0 + (c_{pw}-c) T (\si{\gc})$
+\item[Poisson Eqs.] $\gamma = \frac{c_p}{c_v}\simeq 1.4~,~\kappa = \frac{r}{c_v}\simeq 0.286$, 
+\begin{displaymath}
+  p V^\gamma = \text{constant}~,~T p^{\kappa -1} = \text{constant}
+\end{displaymath}
+\end{ttdesc}
+\subsubsection{Constant values and units}
+%
+\begin{ttdesc}[labelwidth=\widthof{\ttfamily{letterpaper/a4paper}}]
+\item[Universal Gas Constant] $R = \SI{8.314472}{J.mol^{-1}.K^{-1}}$
+\item[Dry Air Gas Constant] $r_d = \SI{287}{J.kg^{-1}.K^{-1}}$
+\item[Water Gas Constant] $r_w = \SI{461}{J.kg^{-1}.K^{-1}}$
+\item[Dry air heat capacity] $c_{pd} = \SI{1006}{J.mol^{-1}.K^{-1}}$
+\item[Water vapor heat capac.] $c_{pw} = \SI{1846}{J.mol^{-1}.K^{-1}}$
+\end{ttdesc}
+
+\subsection{Radiation Heat Transfer}
+\begin{ttdesc}[labelwidth=\widthof{\ttfamily{letterpaper/a4paper}}]
+\item[Wien's Law] $\lambda_M T = \SI{2.898e-3}{m.K}$
+\item[Stefan-Boltzmann Law] $M_e = \varepsilon \sigma T^4$
+\end{ttdesc}
+
+
+\subsubsection{Constant values and units}
+\begin{ttdesc}[labelwidth=\widthof{\ttfamily{letterpaper/a4paper}}]
+\item[Boltzmann Constant] $\sigma = \SI{5.6704e-8}{W.m^{-2}.K^{-4}}$ 
+\end{ttdesc}
+
+\section{Water Vapor and Humidity}
+\begin{ttdesc}[labelwidth=\widthof{\ttfamily{letterpaper/a4paper}}]
+\item[Moist air $r$ constant] $\bar r = q r_w + (1-q) r_d$.
+\item[Relative Humidity] $h = 100\frac{e}{E}\simeq 100 \frac{a}{A} \simeq 100 \frac{m}{M}$
+\item[Mixing Ratio] $m = \frac e P = \frac m {\epsilon + m}$
+\item[Specific Humidity] $q=\frac m {m+1}$
+\item[Absolute Humidity] $e = a r_w T$
+\item[Useful Relations]  $\frac{de}{e}=\frac{dm}{m}+\frac{dP}{P}$ and
+ $\frac{dh}{h}=\frac{dP}{P}-\frac{dE}{E}$.
+\item[Clausius-Clapeyron Equation]
+\begin{align*}
+\frac{dE}{dT} &= \frac {L E}{r_w T^2} ~~\text{(differential form)} \\
+\ln\frac E {E_0} &= \frac L {r_w} \left(\frac 1 {T_0} - \frac 1 T \right)\\
+\ln\frac h {h_0} &= \frac L {r_w} \left(\frac 1 T - \frac 1 {T_0}\right) ~~\text{(only isobaric)}
+\end{align*}
+\item[Magnus formula] 
+\begin{displaymath}
+E(T) \ = \ 6.1 \times 10^{\displaystyle \frac{7.45  T(\si{\gc})}{234.07 + T(\si{\gc})}} \ (\si{hPa}) \ . 
+\end{displaymath}
+\item[Virtual Temperature] 
+\begin{displaymath}
+\overline{r} T= r T_v \Rightarrow T_v=T \left( 1 + \frac 3 5 q \right)~.
+\end{displaymath}
+\item[Equivalent Temperature] 
+\begin{displaymath}
+T_e=T+\frac{m L}{c_p} \simeq T + 2 a \left( \si{g.m^{-3}} \right)~.
+\end{displaymath}
+\item[Wet-bulb Temperature]
+\begin{align*} 
+  (c_{pd}+m c_{pw}) (T-T_w) =& L [M(T_w)-m] \nonumber \\
+T_e \simeq T_w + \frac{M(T_w) L}{c_{pd}} \simeq& T_h + 2 A(T_h)
+\end{align*}
+\end{ttdesc}
+%
+\subsubsection{Constant values and units}
+%
+\begin{ttdesc}[labelwidth=\widthof{\ttfamily{letterpaper/a4paper}}]
+\item[Molecular mass ratio] $\epsilon = \frac{M_w}{M_d}=\frac {r_{d}}{r_{w}}=0.622$
+\item[Water Gas Constant] $r_w = \SI{461}{J.kg^{-1}.K^{-1}}$
+\end{ttdesc}
+
+%\vspace{-\baselineskip}
+%
+%\begin{multicols*}{2}
+%\lstinline|\part{title}| \\
+%\lstinline|\chapter{title}| \\
+%\lstinline|\section{title}| \\
+%\lstinline|\subsection{title}| \\
+%\lstinline|\subsubsection{title}| \\
+%\lstinline|\paragraph{title}| \\
+%\lstinline|\subparagraph{title}|
+%\end{multicols*}
+
+\section{Atmospheric Processes}
+
+\begin{ttdesc}[labelwidth=\widthof{\ttfamily{letterpaper/}}]
+\item[Potential Temperature] $\theta = \left(\frac {1000} P
+  \right)^{r/c_p} T$
+\item[Adiab.\ Elevation(linear)]  $T(z)=T_0 \left( 1 - \frac {\Gamma z} {T'_0} \right)$
+\item[Adiab.\ Elevation(exact)] $T(z)=T_0 \left( 1-\alpha \frac z {T'_0} \right)^{\Gamma/\alpha}$
+\item[Tropospheric Lapse Rate]  $T'(z)=T'_0 - \alpha z$
+\item[Equilibrium Height] $z_e$ such that $T'(z_e) = T(z_e)$.
+\item[Stability Index] $\eta=g \frac {\Gamma-\alpha}{T'}$
+\item[$dh/dT$ in an adiabatic ascent]
+\begin{displaymath}
+\frac{dh}{dT}= \frac h T \left( \frac {\overline{c}_p}{\overline{r_d}} -\frac L {r_w T} \right) \ .
+\end{displaymath}
+\item[Exact $h(T)$ in an adiabatic ascent]
+\begin{displaymath}
+\ln\frac h {h_0} \ = \frac{{\overline c}_p}{\overline{r}} \ln\frac T {T_0} 
++ \frac {\epsilon L} r_d \left( \frac 1 T - \frac 1 {T_0} \right) \ .
+\end{displaymath}
+\item[Pseudoadiab.\ Ascent Lapse Rate]$-L dM \simeq c_p dT - V dP \nonumber$
+\begin{displaymath}
+  \Gamma_{pseud} = \Gamma \frac{P+\epsilon \frac{L E}{R T}}{P+\epsilon  \frac{L}{c_p}\frac{dE}{dT}}
+\end{displaymath}
+
+
+\item[Approximate h(T) in an adiabatic ascent]
+\begin{displaymath}
+\frac h {h_0} \ = \left( \frac T {T_0} 
+\right)^{\displaystyle \frac{\overline{c}_p}{\overline{r}}-\frac{\epsilon L}{r_d T_0}} \ .
+\end{displaymath}
+
+\item[Ferrel Formula] $z_s=122 (T_0-\tau_0) ~~ (\si{m}) $
+\item[V\"ais\"al\"a Formula] $z_s=188 \left(T(\si{\gc}) + 105 \right) \frac{\log_{10}\frac {100}{h_0}}{\log_{10}\frac {100}{h_0}+5.1}$
+
+\end{ttdesc}
+\subsubsection{Constant values and units}
+%
+\begin{ttdesc}[labelwidth=\widthof{\ttfamily{letterpaper/a4paper}}]
+\item[Adiabatic Lapse Rate] $\Gamma = \frac{g}{c_{pd}}=\SI{9.8}{K.km^{-1}}$
+\end{ttdesc}
+
+
+\subsection{Polytropic Processes}
+\begin{ttdesc}[labelwidth=\widthof{\ttfamily{letterpaper/a4paper}}]
+\item[Polyt.\ Heat Capacity]  $\left\{ \begin{array}{c} c_p \to c_p-c \\
+c_v \to c_v-c \end{array} \right.$
+\item[Polyt.\ Heat Capacity] $\delta q = c dT$
+\item[First Principle Polyt.] $({\bar c}_p - c) dT + \frac{T}{T'} g dz = 0$
+\end{ttdesc}
+%
+\subsection{Winds}
+\begin{ttdesc}[labelwidth=\widthof{\ttfamily{letterpaper}}]
+\item[Gradient Pressure Accel.]  $\vec{a}_{p}=-\frac 1 \rho \vec{\nabla}P  \rightarrow -\frac 1 \rho \frac{dP}{dx}$
+\item[Coriolis Accel.] $a_c=2 v \Omega \sin\phi$ where $\phi = $ 
+  latitude and $\Omega  =2\pi/T_{rot}$ angular velocity.
+\item[Geostrophic Vel.] $v_g=\frac{1}{\rho f}\frac{dP}{dx}$ where
+$f=2 \Omega \sin\phi$.
+\end{ttdesc}
+
+%\begin{tabular}{lll}
+%Command & Declaration & Effect \\
+%\lstinline|\textrm{text}| & \lstinline|{\rmfamily text}| & \textrm{Roman family} \\
+%\lstinline|\textsf{text}| & \lstinline|{\sffamily text}| & \textsf{Sans serif family} \\
+%\end{tabular}
+
+%\section{Math mode}
+
+% \subsection{Math mode symbols}
+% \begin{multicols*}{4}
+% \( \leq \) \verb|\leq| \\
+% \( \times \) \verb|\times| \\
+% \( ^{\circ} \) \verb|^{\circ}| \\
+% \( \infty \) \verb|\infty| \\
+% \( \supset \) \verb|\supset| \\
+% \( \subset \) \verb|\subset| \\
+% \( \cup \) \verb|\cup| \\
+% \( \dot a \) \verb|\dot a| \\
+% \( \alpha \) \verb|\alpha| \\
+% \( \epsilon \) \verb|\epsilon| \\
+% \( \theta \) \verb|\theta| \\
+% \( \lambda \) \verb|\lambda| \\
+% \( \pi \) \verb|\pi| \\
+% \( \upsilon \) \verb|\upsilon|
+% \end{multicols*}
+
+%\section{Filler material}
+
+%\lipsum
+
+\noindent Copyright \textcopyright{} \thedate{} \theauthor{}
+
+\end{multicols}
+\end{document}
