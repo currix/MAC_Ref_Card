@@ -63,9 +63,9 @@
 \item[Idem., diff.] $c_pdT = \frac{dp}{\rho}$, $c_vdT = -pdV$
 \item[Latent Heat] $Q = m L$
 \item[L Dependence with $T$] $L=L_0 + (c_{pw}-c) T (\si{\gc})$
-\item[Poisson Eqs.] $\gamma = \frac{c_p}{c_v}\simeq 1.4~,~\kappa = \frac{r}{c_v}\simeq 0.286$, 
+\item[Poisson Eqs.] $\gamma = \frac{c_p}{c_v}\simeq 1.4~,~\kappa = \frac{r}{c_p}\simeq 0.286$, 
 \begin{displaymath}
-  p V^\gamma = \text{constant}~,~T p^{\kappa -1} = \text{constant}
+  p V^\gamma = \text{constant}~,~T p^{-\kappa} = \text{constant}
 \end{displaymath}
 \end{ttdesc}
 \subsubsection{Constant values and units}
@@ -76,6 +76,8 @@
 \item[Water Gas Constant] $r_w = \SI{461}{J.kg^{-1}.K^{-1}}$
 \item[Dry air heat capacity] $c_{pd} = \SI{1006}{J.mol^{-1}.K^{-1}}$
 \item[Water vapor heat capac.] $c_{pw} = \SI{1846}{J.mol^{-1}.K^{-1}}$
+\item[Water latent heat of vap.] $L_{v} = \SI{2.257e6}{J.kg^{-1}}$
+\item[Water latent heat of fuss.] $L_{f} = \SI{3.34e5}{J.kg^{-1}}$
 \end{ttdesc}
 
 \subsection{Radiation Heat Transfer}
@@ -95,7 +97,7 @@
 \item[Moist air $r$ constant] $\bar r = q r_w + (1-q) r_d$.
 \item[Relative Humidity] $h = 100\frac{e}{E}\simeq 100 \frac{a}{A} \simeq 100 \frac{m}{M}$
 \item[Mixing Ratio] $m = \frac e P = \frac m {\epsilon + m}$
-\item[Specific Humidity] $q=\frac m {m+1}$
+\item[Specific Humidity] $q=\frac{a}{\rho}$ and $q=\frac m {m+1}$
 \item[Absolute Humidity] $e = a r_w T$
 \item[Useful Relations]  $\frac{de}{e}=\frac{dm}{m}+\frac{dP}{P}$ and
  $\frac{dh}{h}=\frac{dP}{P}-\frac{dE}{E}$.
@@ -107,8 +109,10 @@
 \end{align*}
 \item[Magnus formula] 
 \begin{displaymath}
-E(T) \ = \ 6.1 \times 10^{\displaystyle \frac{7.45  T(\si{\gc})}{234.07 + T(\si{\gc})}} \ (\si{hPa}) \ . 
+E(T) =  A \times exp{\frac{B\;  T[\si{\gc}]}{C + T[\si{\gc}]}} \ [\si{hPa}] \ .
 \end{displaymath}
+Water: $A = 6.1094, B = 17.625, C = 243.04$\\
+Ice: $A = 6.1121, B = 22.587, C = 273.86$
 \item[Virtual Temperature] 
 \begin{displaymath}
 \overline{r} T= r T_v \Rightarrow T_v=T \left( 1 + \frac 3 5 q \right)~.
